@@ -5,7 +5,7 @@ module Spree
     belongs_to :currency
     default_scope :order =>  "spree_currency_converters.date_req ASC"
 
-    attr_accessible :currency_id, :nominal, :value, :date_req, :currency
+    # attr_accessible :currency_id, :nominal, :value, :date_req, :currency
 
     class << self
       def add(currency, date, value, nominal)
