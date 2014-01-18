@@ -84,7 +84,7 @@ module Spree
         if rate
           add_rate(basic.char_code,
                    from_cur.char_code,
-                   rate.nominal/rate.value.to_f)
+                   rate.nominal / rate.value.to_f)
           add_rate(from_cur.char_code,
                    basic.char_code,
                    rate.value.to_f)
@@ -105,7 +105,7 @@ module Spree
             res = from_money.exchange_to(currency_config)
             load_rate_from(to)
             res = ::Money.new(res, currency_config).exchange_to(to)
-            res = res.to_f
+            res = (res.to_f / 100).round(2)
           rescue => e
             raise "Require load actual currency \t\n #{e}"
           end
