@@ -15,7 +15,7 @@ module Spree
     scope :locale, lambda { |str| where("locale like ?", "%#{str}%") }
     after_save :reset_basic_currency
 
-    attr_accessible :basic, :locale, :char_code, :num_code, :name
+    # attr_accessible :basic, :locale, :char_code, :num_code, :name
 
     # FIXME must be transaction
     def basic!
