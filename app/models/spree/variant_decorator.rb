@@ -39,7 +39,8 @@ Spree::Variant.class_eval do
 
   # prices stored in spree_prices
   def price
-    attr = read_attribute(:price)
+    # attr = read_attribute(:price)
+    attr = @price
     if attr.nil? && !new_record?
       get_price
     else
@@ -51,7 +52,8 @@ Spree::Variant.class_eval do
   # if new record - save to attribute
   # if saved - create price
   def price=(value)
-    write_attribute(:price,value)
+    # write_attribute(:price,value)
+    @price = value
     if !new_record?
       cur = current_char_code
       base_price = prices.where(currency: cur).first
@@ -88,7 +90,8 @@ Spree::Variant.class_eval do
     if spree_price.blank?
       spree_price = self.prices.new(currency: char_code)
     end
-    spree_price.amount = read_attribute(:price)
+    # spree_price.amount = read_attribute(:price)
+    spree_price.amount = @price
      if spree_price &&
        (spree_price.changed? ||
         spree_price.new_record? ||
