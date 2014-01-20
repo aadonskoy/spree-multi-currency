@@ -7,21 +7,18 @@ Spree::OrderContents.class_eval do
       line_item.target_shipment = shipment
       line_item.quantity += quantity.to_i
       line_item.currency = currency unless currency.nil?
-      line_item.save
     else
-      line_item = Spree::LineItem.new(quantity: quantity)
+      line_item = order.line_items.new(quantity: quantity, variant: variant)
       line_item.target_shipment = shipment
-      line_item.variant = variant
       if currency
         line_item.currency = currency unless currency.nil?
         line_item.price    = variant.price_in(currency).amount
       else
         line_item.price    = variant.price
       end
-      order.line_items << line_item
-      line_item
     end
 
+    line_item.save
     order.reload
     line_item
   end
@@ -71,19 +68,19 @@ Spree::Order.class_eval do
     # update totals a second time in case updated adjustments
     # have an effect on the total
     update_totals
-    update_attributes_without_callbacks({
+    update_columns(
       payment_state: payment_state,
       shipment_state: shipment_state,
       item_total: read_attribute(:item_total),
       adjustment_total: adjustment_total,
       payment_total: payment_total,
       total: read_attribute(:total)
-    })
+    )
 
     # ensure checkout payment always matches order total
     # FIXME implement for partitial payments
     if payment? && payments.first.checkout? && payments.first.amount != total
-      payments.first.update_attributes_without_callbacks(amount: total)
+      payments.first.add_columns(amount: total)
     end
 
     update_hooks.each { |hook| self.send hook }
