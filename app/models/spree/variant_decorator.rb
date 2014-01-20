@@ -86,7 +86,6 @@ Spree::Variant.class_eval do
     char_code = current_char_code
     spree_price = prices.where(currency: char_code).first
     spree_price = prices.new(currency: char_code) if spree_price.blank?
-    # spree_price.amount = read_attribute(:price)
     spree_price.amount = @price
     if spree_price &&
        (spree_price.changed? ||
