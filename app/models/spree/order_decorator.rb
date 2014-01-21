@@ -80,7 +80,7 @@ Spree::Order.class_eval do
     # ensure checkout payment always matches order total
     # FIXME implement for partitial payments
     if payment? && payments.first.checkout? && payments.first.amount != total
-      payments.first.add_columns(amount: total)
+      payments.first.update_columns(amount: total)
     end
 
     update_hooks.each { |hook| self.send hook }
