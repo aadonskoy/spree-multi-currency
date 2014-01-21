@@ -42,20 +42,20 @@ Spree::Order.class_eval do
   # this will return only the highest shipping cost
   # if the calculator fixed price (per item) was used.
   # not tested with any other calculators
-  def rate_hash
-    highest_cost = 0
-    available_shipping_methods(:front_end).map do |ship_method|
-      next unless cost = ship_method.calculator.compute(self)
-      if cost > highest_cost
-        highest_cost = cost
-        @ship_method = ship_method
-      end
-    end
-    @rate_hash ||= [{ id: @ship_method.id,
-                      shipping_method: @ship_method,
-                      name: @ship_method.name,
-                      cost: highest_cost }]
-  end
+  # def rate_hash
+  #   highest_cost = 0
+  #   available_shipping_methods(:front_end).map do |ship_method|
+  #     next unless cost = ship_method.calculator.compute(self)
+  #     if cost > highest_cost
+  #       highest_cost = cost
+  #       @ship_method = ship_method
+  #     end
+  #   end
+  #   @rate_hash ||= [{ id: @ship_method.id,
+  #                     shipping_method: @ship_method,
+  #                     name: @ship_method.name,
+  #                     cost: highest_cost }]
+  # end
 
   def update!
     update_totals
