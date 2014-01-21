@@ -7,12 +7,12 @@ module Spree
 
     has_many :currency_converters do
       def get_rate(date)
-        where("date_req <= ?", date).last
+        where('date_req <= ?', date).last
       end
     end
 
-    default_scope order: 'spree_currencies.locale'
-    scope :locale, lambda { |str| where("locale like ?", "%#{str}%") }
+    default_scope { order('spree_currencies.locale') }
+    scope :locale, ->(str) { where('locale like ?', "%#{str}%") }
     after_save :reset_basic_currency
 
     # attr_accessible :basic, :locale, :char_code, :num_code, :name
