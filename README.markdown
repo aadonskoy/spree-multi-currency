@@ -28,6 +28,7 @@ Load up the list of all international currencies with corresponding codes:
 
 This step is not obligatory, i.e. you can manually fill up the 'currencies' table, but it's more practical to load the list with rake task above (and be sure the codes are OK), and then remove the currencies you don't want to support.
 
+Raketasks will set 'locale' automatically for the currencies USD, EUR, RUB. For other currencies you have to do this manually.
 
 If you want get amount in base currency use base_total
 
