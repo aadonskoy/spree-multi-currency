@@ -7,7 +7,7 @@ module Spree
 
     has_many :currency_converters do
       def get_rate(date)
-        last(conditions: ["date_req <= ?", date])
+        where("date_req <= ?", date).last
       end
     end
 
